@@ -5,6 +5,7 @@ from typing import Literal
 from rich.console import Console
 
 import todo_cmd.templates as t
+from todo_cmd.interface.config import CONFIG
 
 console = Console()
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -15,9 +16,17 @@ with open(language_setting_path, "r") as fp:
 
 LANG = Literal["zh", "en"]
 
-def i2n(key: str, lang: LANG) -> str:
-    try:
-        return lang_dict[key][lang]
-    except KeyError:
-        console.print(t.error(f"Cannot find  {lang}:{key} in language.json"))
-        exit(1)
+def i2n(lang: LANG):
+    def trans(key: str) -> str:
+        try:
+            return lang_dict[key][lang]
+        except KeyError:
+            console.print(t.error(f"Cannot find  {lang}:{key} in language.json"))
+            exit(1)
+    return trans
+
+
+if CONFIG:
+    TRANS = i2n(CONFIG["language"])
+else:
+    TRANS = None

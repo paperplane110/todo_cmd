@@ -5,13 +5,9 @@ import rich_click as click
 from rich.console import Console
 
 import todo_cmd.templates as t
-from todo_cmd.language import i2n
-from todo_cmd.interface.config import CONFIG
+from todo_cmd.language import TRANS
 from todo_cmd.interface.todo import todo_interface
 from todo_cmd.interface.task import Task
-
-# Load configuration
-lang = CONFIG["language"]
 
 console = Console()
 
@@ -19,14 +15,12 @@ console = Console()
 @click.command()
 @click.argument("task", nargs=-1)
 def log(task: str):
-    """Add a log"""
+    """新建日志 | Add a log"""
     # check if task is empty
     task = " ".join(task)
     if len(task.strip()) == 0:
         console.print(t.error(f"log 内容不能为空"))
         exit(1)
-    if " " in task:
-        task = f"\"{task}\""
 
     log_date = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
 

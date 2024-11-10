@@ -6,6 +6,10 @@ def done(content: str):
     return f"[default on green4] √ [/] {content}"
 
 
+def todo(content: str):
+    return f"[default on dodger_blue2] - [/] {content}"
+
+
 def error(content: str):
     return f"[default on red] x [/] {content}"
 
@@ -15,5 +19,5 @@ def question(content: str):
 
 
 def info(content: str):
-    return f"[default on white] * [/] {content}"
+    return f"[default on bright_black] * [/] {content}"
 

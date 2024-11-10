@@ -10,7 +10,6 @@ from rich.console import Console
 from rich.prompt import Prompt, Confirm
 
 import todo_cmd.templates as t
-from todo_cmd.language import i2n
 
 console = Console()
 
@@ -29,7 +28,29 @@ Welcome to the [b cyan3]todo-cmd[/]!
 This is a simple tool to help you manage your tasks.
 """
 
-@click.command()
+TRANS = {
+    "created_todo_folder": {
+        "en": "Created todo storage folder at ~./todo",
+        "zh": "已创建todo文件存储路径 ~/.todo"
+    },
+    "created_todo_json": {
+        "en": "Created todo file at ~/.todo/todo.json",
+        "zh": "已创建todo文件 ~/.todo/todo.json"
+    },
+    "created_config": {
+        "en": "Created config: ~/.todo/config.json",
+        "zh": "已创建config文件 ~/.todo/config.json"
+    },
+    "is_overwrite_todo": {
+        "en": "todo.json is already exists, overwrite or not",
+        "zh": "todo.json 已存在，是否覆盖原有文件"
+    },
+    "init_done": {
+        "en": "Configuration Initialized",
+        "zh": "配置初始化完成"
+    }
+}
+
 def main():
     """Greet the user and perform initial setup."""
     # welcome
@@ -45,21 +66,21 @@ def main():
     # create local folder
     if not os.path.exists(TODO_FOLDER):
         os.mkdir(TODO_FOLDER)
-        console.print(t.done(i2n("create_todo_folder", lang)))
+        console.print(t.done(TRANS["created_todo_folder"][lang]))
 
     # create todo.json file
     is_create_todo_json = False
     if os.path.exists(TODO_FILE):
         # already has todo.json file
         is_create_todo_json = Confirm.ask(
-            t.question("todo.json 已存在，是否覆盖原有文件"),
+            t.question(TRANS["is_overwrite_todo"][lang]),
             default=False
         )
     
     if is_create_todo_json:
         with open(TODO_FILE, "w") as fp:
             json.dump([], fp)
-        console.print(t.done(i2n("created_todo_json", lang)))
+        console.print(t.done(TRANS["created_todo_json"][lang]))
     
     # create config file
     config_dict = {
@@ -69,9 +90,9 @@ def main():
     if not os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "w") as fp:
             json.dump(config_dict, fp, indent=2)
-        console.print(t.done(i2n("created_config", lang)))
+        console.print(t.done(TRANS["created_config"][lang]))
 
-    console.print(t.done("初始化完成"))
+    console.print(t.done(TRANS["init_done"][lang]))
 
 
 if __name__ == '__main__':

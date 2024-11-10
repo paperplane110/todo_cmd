@@ -12,11 +12,79 @@
         "zh": "已创建config文件 ~/.todo/config.json"
     },
     "created_date": {
-        "en": "Created Date: {}",
-        "zh": "创建日期：{}"
+        "en": "Created Date",
+        "zh": "创建日期"
     },
     "help_ddl": {
         "en": "Deadline, e.g. 20241212",
         "zh": "截止日期，比如：20241212"
+    },
+    "help_rm_id": {
+        "en": "ID of the task you would like to remove",
+        "zh": "希望删除的任务的 id"
+    },
+    "status": {
+        "en": "Status",
+        "zh": "状态"
+    },
+    "task": {
+        "en": "Task",
+        "zh": "任务"
+    },
+    "ddl": {
+        "en": "Deadline",
+        "zh": "截止日期"
+    },
+    "finish_date": {
+        "en": "Finish Date",
+        "zh": "完成日期"
+    },
+    "expr": {
+        "en": "expr",
+        "zh": "逾期"
+    },
+    "todo": {
+        "en": "todo",
+        "zh": "进行"
+    },
+    "done": {
+        "en": "done",
+        "zh": "完成"
+    },
+    "total_tasks": {
+        "en": "Total   Tasks",
+        "zh": "总计任务数"
+    },
+    "overdue_tasks": {
+        "en": "Overdue Tasks",
+        "zh": "逾期任务数"
+    },
+    "todo_tasks": {
+        "en": "Todo    Tasks",
+        "zh": "待完成个数"
+    },
+    "done_tasks": {
+        "en": "Done    Tasks",
+        "zh": "已完成个数"
+    },
+    "new_task": {
+        "en": "New Task",
+        "zh": "新建任务"
+    },
+    "now": {
+        "en": "Now",
+        "zh": "当前时间"
+    },
+    "task_not_found": {
+        "en": "Task not found",
+        "zh": "未找到任务"
+    },
+    "is_rm_task": {
+        "en": "Delete task",
+        "zh": "是否删除任务"
+    },
+    "done_rm_task": {
+        "en": "Delete task done",
+        "zh": "任务已删除"
     }
 }
