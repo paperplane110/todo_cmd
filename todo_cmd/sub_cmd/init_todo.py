@@ -5,8 +5,9 @@ init `config.json` and `todo.json` in ~/.todo/
 import os
 import json
 
+import rich_click as click
 from rich.console import Console
-from rich.prompt import Prompt
+from rich.prompt import Prompt, Confirm
 
 import todo_cmd.templates as t
 from todo_cmd.language import i2n
@@ -28,7 +29,7 @@ Welcome to the [b cyan3]todo-cmd[/]!
 This is a simple tool to help you manage your tasks.
 """
 
-
+@click.command()
 def main():
     """Greet the user and perform initial setup."""
     # welcome
@@ -47,14 +48,23 @@ def main():
         console.print(t.done(i2n("create_todo_folder", lang)))
 
     # create todo.json file
-    if not os.path.exists(TODO_FILE):
+    is_create_todo_json = False
+    if os.path.exists(TODO_FILE):
+        # already has todo.json file
+        is_create_todo_json = Confirm.ask(
+            t.question("todo.json 已存在，是否覆盖原有文件"),
+            default=False
+        )
+    
+    if is_create_todo_json:
         with open(TODO_FILE, "w") as fp:
             json.dump([], fp)
         console.print(t.done(i2n("created_todo_json", lang)))
     
     # create config file
     config_dict = {
-        "language": lang
+        "language": lang,
+        "ddl_delta": 3600 * 12
     }
     if not os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "w") as fp:

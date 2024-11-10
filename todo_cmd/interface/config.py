@@ -1,7 +1,7 @@
 import os
 import json
 
-from todo_cmd.init_todo import main as init_todo
+from todo_cmd.sub_cmd.init_todo import main as init_todo
 
 # Load configuration
 TODO_FOLDER = os.path.join(os.path.expanduser('~'), '.todo')
@@ -13,4 +13,8 @@ def read_config() -> dict:
             conf = json.load(f)
     except Exception as e:
         init_todo()
+        with open(CONFIG_FILE, "r") as f:
+            conf = json.load(f)
     return conf
+
+CONFIG = read_config()

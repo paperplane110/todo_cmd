@@ -18,5 +18,7 @@ def error(content: str):
 def question(content: str):
     return f"[default on deep_sky_blue1] ? [/] {content}"
 
+
 def info(content: str):
-    return f"[default on deep_sky_blue1] * [/] {content}"
+    return f"[default on white] * [/] {content}"
+
