@@ -1,3 +1,14 @@
+"""List tasks
+TODO: Implement better tui
+TODO: Sort
+    - by status
+    - by created_date
+    - by done_date
+    - by ddl
+TODO: add more filter methods
+    - status
+    - date
+"""
 import rich_click as click
 from rich.console import Console
 

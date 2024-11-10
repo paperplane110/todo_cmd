@@ -1,11 +1,6 @@
 """Some prints templates
 support colors: https://rich.readthedocs.io/en/stable/appendix/colors.html
 """
-from rich.console import Console
-
-
-console = Console()
-
 
 def done(content: str):
     return f"[default on green4] √ [/] {content}"

@@ -1,3 +1,4 @@
+"""Add a finished task as log"""
 import datetime
 
 import rich_click as click

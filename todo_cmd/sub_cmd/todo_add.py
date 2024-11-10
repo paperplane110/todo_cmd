@@ -1,3 +1,4 @@
+"""Add a new task"""
 import datetime
 
 import rich_click as click
