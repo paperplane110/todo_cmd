@@ -1,0 +1,22 @@
+{
+    "created_todo_folder": {
+        "en": "Created todo storage folder at ~./todo",
+        "zh": "已创建todo文件存储路径 ~/.todo"
+    },
+    "created_todo_json": {
+        "en": "Created todo file at ~/.todo/todo.json",
+        "zh": "已创建todo文件 ~/.todo/todo.json"
+    },
+    "created_config": {
+        "en": "Created config: ~/.todo/config.json",
+        "zh": "已创建config文件 ~/.todo/config.json"
+    },
+    "created_date": {
+        "en": "Created Date: {}",
+        "zh": "创建日期：{}"
+    },
+    "help_ddl": {
+        "en": "Deadline, e.g. 20241212",
+        "zh": "截止日期，比如：20241212"
+    }
+}
