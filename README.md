@@ -1,4 +1,4 @@
-# Todos in Command Line
+# Todo in Command Line
 
 欢迎使用 todo-cmd，这是一个简单的工具，帮助您在命令行中轻松管理代办、记录完成事项。
 
