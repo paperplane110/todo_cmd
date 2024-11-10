@@ -71,6 +71,8 @@ def main():
             json.dump(config_dict, fp, indent=2)
         console.print(t.done(i2n("created_config", lang)))
 
+    console.print(t.done("初始化完成"))
+
 
 if __name__ == '__main__':
     main()
