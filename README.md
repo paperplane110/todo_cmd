@@ -67,9 +67,9 @@ todo rm ${task_id}
 todo mod ${task_id}
 ```
 
-## Developer
+## For Developer
 
-Install todo_cmd editable
+Install todo_cmd in editable mode
 
 ```shell
 pip install -e .
@@ -78,4 +78,6 @@ pip install -e .
 ## Design Documents
 
 - [Task class](./docs/task_class.md)
-- [Task status](./docs/task_status.md)
+  - [Task status](./docs/task_status.md)
+- [Design of `todo rm`](./docs/todo_rm.md)
+- [Design of `todo mod`](./docs/todo_mod.md)

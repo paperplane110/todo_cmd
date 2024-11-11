@@ -2,6 +2,9 @@ import datetime
 from typing import Literal, List
 
 
+TASK_STATUS = Literal["todo", "done"]
+
+
 class Task:
     """Task class"""
     def __init__(
@@ -9,7 +12,7 @@ class Task:
             task: str,
             task_id: int,
             ddl: str,
-            status: Literal["todo", "done"] = "done",
+            status: TASK_STATUS = "done",
             created_date: str = None,
             done_date: str = None,
             tags: List[str] = [],
@@ -42,6 +45,25 @@ class Task:
     def __repr__(self):
         return f"Task(id={self.task_id}, created_date={self.created_date}, task={self.task}, \
 status={self.status}, ddl:{self.ddl}, tags={self.tags})"
+    
+    def update_status(self, new_status: TASK_STATUS) -> bool:
+        if self.status == new_status:
+            return True
+        if (self.status == "done") and \
+            (new_status == "todo") and \
+            (self.done_date is not None):
+            self.status = new_status
+            self.done_date = None
+            return True
+        if (self.status == "todo") and \
+            (new_status == "done") and \
+            (self.done_date is None):
+            self.status = new_status
+            self.done_date = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+            return True
+
+        # ? are there any other choices
+        return False
 
 
 def task_list_serializer(obj) -> dict:

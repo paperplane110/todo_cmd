@@ -3,8 +3,6 @@ import datetime
 import readline
 
 import rich_click as click
-from rich.prompt import Prompt
-from rich.console import Console
 
 import todo_cmd.templates as t
 from todo_cmd.language import TRANS
@@ -16,9 +14,6 @@ from todo_cmd.interface.todo import todo_interface
 # Load configuration
 DDL_DELTA = int(CONFIG["ddl_delta"])
 
-console = Console()
-
-
 
 @click.command()
 @click.argument("task", nargs=-1)
@@ -28,9 +23,9 @@ def add(task: str, deadline: str):
     # check input task
     task = " ".join(task)
     if len(task.strip()) == 0:
-        console.print(t.error(f"todo 内容不能为空"))
+        t.error(f"todo 内容不能为空")
         exit(1)
-    console.print(t.info(f"{TRANS('new_task')}: {task}"))
+    t.info(f"{TRANS('new_task')}: {task}")
 
     now_dt = datetime.datetime.now()
     now_str = now_dt.strftime("%Y-%m-%d_%H:%M:%S")
@@ -40,11 +35,8 @@ def add(task: str, deadline: str):
         default_ddl_dt = now_dt + datetime.timedelta(seconds=DDL_DELTA)
         default_ddl_str = default_ddl_dt.strftime("%Y-%m-%d_%H:%M:%S")
 
-        console.print(t.info(f"{TRANS('now')}: {now_str}"))
-        deadline = Prompt.ask(
-            t.question("Please specify a deadline"),
-            default=default_ddl_str
-        )
+        t.info(f"{TRANS('now')}: {now_str}")
+        deadline = t.ask("Please specify a deadline", default=default_ddl_str)
 
     ddl_dt = validate_date_format(deadline)
     deadline = ddl_dt.strftime("%Y-%m-%d_%H:%M:%S")
@@ -59,6 +51,7 @@ def add(task: str, deadline: str):
         status="todo"
     )
     todo_interface.add_todo(task_obj)
-    console.print(t.info(f"{TRANS('new_task')}: {next_id} | {task}"))
-    console.print(t.info(f"{TRANS('created_date')}: {now_str}"))
-    console.print(t.info(f"{TRANS('ddl')}: {deadline}"))
+    print("\n")
+    t.info(f"{TRANS('new_task')}: {next_id} | {task}")
+    t.info(f"{TRANS('created_date')}: {now_str}")
+    t.info(f"{TRANS('ddl')}: {deadline}")

@@ -29,7 +29,7 @@
     },
     "task": {
         "en": "Task",
-        "zh": "任务"
+        "zh": "任务内容"
     },
     "ddl": {
         "en": "Deadline",
@@ -67,6 +67,10 @@
         "en": "Done    Tasks",
         "zh": "已完成个数"
     },
+    "log_should_not_be_empty": {
+        "en": "Log should not be empty",
+        "zh": "日志内容不能为空"
+    },
     "new_task": {
         "en": "New Task",
         "zh": "新建任务"
@@ -80,11 +84,31 @@
         "zh": "未找到任务"
     },
     "is_rm_task": {
-        "en": "Delete task",
+        "en": "Are you sure to rm",
         "zh": "是否删除任务"
     },
     "done_rm_task": {
         "en": "Delete task done",
         "zh": "任务已删除"
+    },
+    "mod_help_task": {
+        "en": "Modify task's description",
+        "zh": "修改任务内容"
+    },
+    "mod_help_status": {
+        "en": "Modify task's status (todo|done)",
+        "zh": "修改任务状态 (todo|done)"
+    },
+    "mod_help_ddl": {
+        "en": "Modify deadline, support YYYYmmdd, YYYY-mm-dd, YYYY-mm-dd_HH:MM:SS",
+        "zh": "修改截止时间，支持格式 YYYYmmdd, YYYY-mm-dd, YYYY-mm-dd_HH:MM:SS"
+    },
+    "date_fmt_not_support": {
+        "en": "Date format error, must be YYYYmmdd, YYYY-mm-dd, YYYY-mm-dd_HH:MM:SS",
+        "zh": "日期格式错误，支持的格式 YYYYmmdd, YYYY-mm-dd, YYYY-mm-dd_HH:MM:SS"
+    },
+    "mod_success": {
+        "en": "Task modified successfully",
+        "zh": "任务修改成功"
     }
 }

@@ -11,7 +11,6 @@ TODO: add more filter methods
 import datetime
 
 import rich_click as click
-from rich.console import Console
 from rich.table import Table
 
 import todo_cmd.templates as t
@@ -19,9 +18,6 @@ from todo_cmd.language import TRANS
 from todo_cmd.utils import validate_date_format
 from todo_cmd.interface.todo import todo_interface
 from todo_cmd.interface.task import Task
-
-
-console = Console()
 
 
 def is_over_due(task: Task) -> bool:
@@ -44,7 +40,7 @@ def ls(all: bool):
     """展示任务 | Show all tasks"""
     task_list = todo_interface.todo_list
     if len(task_list) == 0:
-        console.print(t.info("No tasks in todo list"))
+        t.info("No tasks in todo list")
         return 0
     
     # Some filter logic
@@ -105,8 +101,8 @@ def ls(all: bool):
             task.ddl,
             task.done_date
         )
-    console.print(table)
-    console.print(t.info(f"{TRANS('total_tasks')}: {len(task_list)}"))
-    console.print(t.error(f"{TRANS('overdue_tasks')}: {over_due_list_len}"))
-    console.print(t.todo(f"{TRANS('todo_tasks')}: {todo_list_len}"))
-    console.print(t.done(f"{TRANS('done_tasks')}: {done_list_len}"))
+    t.console.print(table)
+    t.info(f"{TRANS('total_tasks')}: {len(task_list)}")
+    t.error(f"{TRANS('overdue_tasks')}: {over_due_list_len}")
+    t.todo(f"{TRANS('todo_tasks')}: {todo_list_len}")
+    t.done(f"{TRANS('done_tasks')}: {done_list_len}")

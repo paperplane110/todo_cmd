@@ -37,11 +37,11 @@ class TodoInterface:
 
         return todo_list
 
-    def save_todos(self, todo_list: List[Task]):
+    def save_todos(self):
         """Save task list to disk"""
         with open(self.todo_file, "w") as fp:
             json.dump(
-                todo_list,
+                self.todo_list,
                 fp,
                 default=task_list_serializer,
                 indent=2
@@ -50,7 +50,7 @@ class TodoInterface:
     def add_todo(self, task: Task) -> bool:
         """add task to todo and save to disk"""
         self.todo_list.append(task)
-        self.save_todos(self.todo_list)
+        self.save_todos()
         self.max_id += 1
 
     def find_by_id(self, req_id: int) -> Optional[Task]:
@@ -73,7 +73,7 @@ class TodoInterface:
                 break
         if is_found:
             task = self.todo_list.pop(idx)
-            self.save_todos(self.todo_list)
+            self.save_todos()
         else:
             task = None
         return task

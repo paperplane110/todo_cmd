@@ -2,14 +2,11 @@
 import datetime
 
 import rich_click as click
-from rich.console import Console
 
 import todo_cmd.templates as t
 from todo_cmd.language import TRANS
 from todo_cmd.interface.todo import todo_interface
 from todo_cmd.interface.task import Task
-
-console = Console()
 
 
 @click.command()
@@ -19,7 +16,7 @@ def log(task: str):
     # check if task is empty
     task = " ".join(task)
     if len(task.strip()) == 0:
-        console.print(t.error(f"log 内容不能为空"))
+        t.error(TRANS("log_should_not_be_empty"))
         exit(1)
 
     log_date = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
@@ -34,5 +31,5 @@ def log(task: str):
         done_date=log_date
     )
     todo_interface.add_todo(task_obj)
-    console.print(t.info(f"新建日志：{next_id}|{task}"))
-    console.print(t.info(f"创建日期：{log_date}"))
+    t.info(f"{TRANS('new_task')}: \[{next_id}] {task}")
+    t.info(f"{TRANS('created_date')}: {log_date}")

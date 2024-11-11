@@ -5,13 +5,10 @@ init `config.json` and `todo.json` in ~/.todo/
 import os
 import json
 
-import rich_click as click
-from rich.console import Console
-from rich.prompt import Prompt, Confirm
+from rich.prompt import Confirm
 
 import todo_cmd.templates as t
 
-console = Console()
 
 TODO_FOLDER = os.path.join(os.path.expanduser('~'), '.todo')
 TODO_FILE = os.path.join(TODO_FOLDER, 'todo.json')
@@ -54,11 +51,11 @@ TRANS = {
 def main():
     """Greet the user and perform initial setup."""
     # welcome
-    console.print(WELCOME)
+    t.console.print(WELCOME)
 
     # setting config
-    lang = Prompt.ask(
-        t.question("请选择语言 | Please select language"),
+    lang = t.ask(
+        "请选择语言 | Please select language", 
         choices=["zh", "en"],
         default="zh"
     )
@@ -66,21 +63,21 @@ def main():
     # create local folder
     if not os.path.exists(TODO_FOLDER):
         os.mkdir(TODO_FOLDER)
-        console.print(t.done(TRANS["created_todo_folder"][lang]))
+        t.done(TRANS["created_todo_folder"][lang])
 
     # create todo.json file
     is_create_todo_json = True
     if os.path.exists(TODO_FILE):
         # already has todo.json file
         is_create_todo_json = Confirm.ask(
-            t.question(TRANS["is_overwrite_todo"][lang]),
+            t.ASK_MARK + " " + TRANS["is_overwrite_todo"][lang],
             default=False
         )
     
     if is_create_todo_json:
         with open(TODO_FILE, "w") as fp:
             json.dump([], fp)
-        console.print(t.done(TRANS["created_todo_json"][lang]))
+        t.done(TRANS["created_todo_json"][lang])
     
     # create config file
     config_dict = {
@@ -90,9 +87,9 @@ def main():
     if not os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "w") as fp:
             json.dump(config_dict, fp, indent=2)
-        console.print(t.done(TRANS["created_config"][lang]))
+        t.done(TRANS["created_config"][lang])
 
-    console.print(t.done(TRANS["init_done"][lang]))
+    t.done(TRANS["init_done"][lang])
 
 
 if __name__ == '__main__':
