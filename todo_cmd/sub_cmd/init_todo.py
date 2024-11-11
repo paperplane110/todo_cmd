@@ -69,7 +69,7 @@ def main():
         console.print(t.done(TRANS["created_todo_folder"][lang]))
 
     # create todo.json file
-    is_create_todo_json = False
+    is_create_todo_json = True
     if os.path.exists(TODO_FILE):
         # already has todo.json file
         is_create_todo_json = Confirm.ask(
