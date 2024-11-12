@@ -6,7 +6,7 @@ import rich_click as click
 
 import todo_cmd.templates as t
 from todo_cmd.language import TRANS
-from todo_cmd.utils import validate_date_format
+from todo_cmd.validation import val_ddl_callback, val_date_fmt
 from todo_cmd.interface.config import CONFIG
 from todo_cmd.interface.task import Task
 from todo_cmd.interface.todo import todo_interface
@@ -17,7 +17,11 @@ DDL_DELTA = int(CONFIG["ddl_delta"])
 
 @click.command()
 @click.argument("task", nargs=-1)
-@click.option("-ddl", "--deadline", default=None, help=TRANS("help_ddl"))
+@click.option(
+    "-ddl", "--deadline", 
+    default=None,
+    callback=val_ddl_callback,
+    help=TRANS("help_ddl"))
 def add(task: str, deadline: str):
     """新建任务 | Add a task"""
     # check input task
@@ -38,7 +42,7 @@ def add(task: str, deadline: str):
         t.info(f"{TRANS('now')}: {now_str}")
         deadline = t.ask("Please specify a deadline", default=default_ddl_str)
 
-    ddl_dt = validate_date_format(deadline)
+    ddl_dt = val_date_fmt(deadline)
     deadline = ddl_dt.strftime("%Y-%m-%d_%H:%M:%S")
 
     

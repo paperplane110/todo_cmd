@@ -15,7 +15,7 @@ from rich.table import Table
 
 import todo_cmd.templates as t
 from todo_cmd.language import TRANS
-from todo_cmd.utils import validate_date_format
+from todo_cmd.validation import val_date_fmt
 from todo_cmd.interface.todo import todo_interface
 from todo_cmd.interface.task import Task
 
@@ -25,7 +25,7 @@ def is_over_due(task: Task) -> bool:
     if task.status == "done":
         return False
     # get ddl datetime
-    ddl_dt = validate_date_format(task.ddl)
+    ddl_dt = val_date_fmt(task.ddl)
 
     now_dt = datetime.datetime.now()
     if (now_dt < ddl_dt):
@@ -93,7 +93,7 @@ def ls(all: bool):
             end_section=is_last_elem
         )
     for task in done_list:
-        status_str = f"[default on green] {TRANS('done')} [/]"
+        status_str = f"[default on green4] {TRANS('done')} [/]"
         table.add_row(
             str(task.task_id),
             status_str,

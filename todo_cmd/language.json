@@ -107,6 +107,10 @@
         "en": "Date format error, must be YYYYmmdd, YYYY-mm-dd, YYYY-mm-dd_HH:MM:SS",
         "zh": "日期格式错误，支持的格式 YYYYmmdd, YYYY-mm-dd, YYYY-mm-dd_HH:MM:SS"
     },
+    "update_status_failed": {
+        "en": "Update status failed",
+        "zh": "任务状态修改失败"
+    },
     "mod_success": {
         "en": "Task modified successfully",
         "zh": "任务修改成功"

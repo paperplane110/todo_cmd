@@ -82,7 +82,7 @@ def main():
     # create config file
     config_dict = {
         "language": lang,
-        "ddl_delta": 3600 * 12
+        "ddl_delta": 3600 * 24  # delay on day
     }
     if not os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "w") as fp:
