@@ -51,6 +51,43 @@ todo ls -v
 └────┴────────┴──────────────────────────────────────┴─────────────────────┴─────────────────────┴─────────────────────┘
 ```
 
+## List by given ARGUMENTS
+
+
+```
+todo ls ARGUMENTS
+```
+
+- `ARGUMENTS` can be task id/tasks' id
+
+```shell
+todo ls 1
+
+# or
+todo ls 1 2 3 4
+```
+
+Or if you want to know what you have done in the last week/month/year
+
+- `today/t`: today
+- `yest/y`: yesterday
+- `week/w`: last week
+- `month/m`: last month
+- `year`: last year
+
+```
+todo ls y
+todo ls w
+todo ls m
+```
+
+Or, you would like to know the next day/weeks/month's plan:
+
+- `tmr`: tomorrow
+- `nw`: next week
+- `nm`: next month
+- `ny`: next year
+
 ## List by given date
 
 User need to provide date range:
@@ -64,22 +101,6 @@ Then those tasks, whose done_date or created_date is in this range, will be disp
 todo ls -s 20241101 -e 20241130
 ```
 
-Or list last week/month/year's tasks
-
-```
-todo ls --week
-todo ls --month
-todo ls --year
-```
-
-
-## List by given ids
-
-User need to provide a task id/tasks' id
-
-```shell
-todo ls 1 2 3 4 ....
-```
 
 ## List by given status
 
@@ -96,18 +117,28 @@ todo ls --todo
 
 ## Options Composition
 
-- 🕶 When id or ids is given, other options will be omitted
+- 🕶 When `id or ids` is given, other options will be omitted
 
 ```shell
 # will only display task 1 2 3
-todo ls 1 2 3 --week --done
+todo ls 1 2 3 --done
+```
+
+- `yest/week/month/year/tmr/nw/nm/ny` can work with status option
+
+```shell
+# search what should be done in the next week
+todo ls nw --todo
+
+# search what has been done on yesterday
+todo ls yest --done
 ```
 
 - ✅ Valid
 
 ```shell
 # Search tasks in last week, whose status is done
-todo ls --week --todo
+todo ls week --done
 
 # Search tasks between 20240101 and 20241231, whose status is done
 todo ls -s 20240101 -e 20241231 --done
@@ -116,6 +147,6 @@ todo ls -s 20240101 -e 20241231 --done
 - ❌ Invalid
 
 ```shell
-todo ls --week -s 20240101 -e 20241231
+todo ls week -s 20240101 -e 20241231
 todo ls --todo --expr
 ```
