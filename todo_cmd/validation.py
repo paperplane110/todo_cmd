@@ -5,7 +5,22 @@ import todo_cmd.templates as t
 from todo_cmd.language import TRANS
 
 
-def val_date_fmt(date_str) -> Optional[datetime]:
+def val_date_fmt(date_str: str) -> Optional[datetime]:
+    """validate the format of given datetime string,
+    if it is valid, convert it to `datetime.datetime` object,
+    otherwise, retrun None
+
+    Support
+    - "%Y-%m-%d_%H:%M:%S"
+    - "%Y-%m-%d",
+    - "%Y%m%d"
+
+    Args:
+        date_str (str): datetime string
+
+    Returns:
+        Optional[datetime]: if valid return dt, otherwise None
+    """
     formats = [
         "%Y-%m-%d_%H:%M:%S",  # 格式 1: "2024-01-01_12:30:45"
         "%Y-%m-%d",           # 格式 2: "2024-01-01"
@@ -24,6 +39,7 @@ def val_date_fmt(date_str) -> Optional[datetime]:
 
 
 def val_ddl_callback(ctx, param, value):
+    """validation for --deadline or other date option"""
     if value is None:
         return None
     try:

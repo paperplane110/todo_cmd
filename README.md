@@ -2,9 +2,12 @@
 
 欢迎使用 todo-cmd，这是一个简单的工具，帮助您在命令行中轻松管理代办、记录完成事项。
 
+Welcome to the todo-cmd!
+This is a simple tool to help you manage your tasks.
+
 ## 1. 安装｜Installation
 
-目前仅支持通过源码安装，需要 python3.7^
+目前仅支持通过源码安装，需要 python3.8^
 
 ```shell
 git clone https://github.com/paperplane110/todo_cmd.git
