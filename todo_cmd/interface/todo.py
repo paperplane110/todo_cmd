@@ -77,5 +77,16 @@ class TodoInterface:
         else:
             task = None
         return task
+    
+    def update_status_by_id(self, req_id: int) -> Optional[Task]:
+        """update the status of the task, which's id is req_id"""
+        task = self.find_by_id(req_id)
+        if not task:
+            return None
+        if not task.update_status("done"):
+            return None
+        self.save_todos()
+        return task
+
 
 todo_interface = TodoInterface()

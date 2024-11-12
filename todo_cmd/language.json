@@ -114,5 +114,17 @@
     "mod_success": {
         "en": "Task modified successfully",
         "zh": "任务修改成功"
+    },
+    "task_done": {
+        "en": "Task finished",
+        "zh": "任务完成"
+    },
+    "task_already_done": {
+        "en": "Task already done, won't update",
+        "zh": "任务本身已经完成，未执行更新"
+    },
+    "please_input_task_id": {
+        "en": "Please input tasks' id",
+        "zh": "请输入要完成的任务 id"
     }
 }
