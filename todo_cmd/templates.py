@@ -39,3 +39,15 @@ def ask(prompt: str, **kwargs):
 @wraps(console.print)
 def info(*args, **kwargs):
     console.print(INFO_MARK, *args, **kwargs)
+
+
+def red_label(text: str) -> str:
+    return f"[default on red3] {text} [/]"
+
+
+def blue_label(text: str) -> str:
+    return f"[default on dodger_blue2] {text} [/]"
+
+
+def green_label(text: str) -> str:
+    return f"[default on green4] {text} [/]"

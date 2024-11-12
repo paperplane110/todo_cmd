@@ -49,6 +49,35 @@ class Task:
         return f"Task(id={self.task_id}, created_date={self.created_date}, task={self.task}, \
 status={self.status}, ddl:{self.ddl}, tags={self.tags})"
     
+    @property
+    def is_done(self) -> bool:
+        """is the task done"""
+        if self.status == "done":
+            return True
+        return False
+
+    @property
+    def is_over_due(self) -> bool:
+        """is the task over due"""
+        # For tasks already done, its not over due
+        if self.status == "done":
+            return False
+        # get ddl datetime
+        ddl_dt = val_date_fmt(self.ddl)
+
+        now_dt = datetime.datetime.now()
+        if (now_dt < ddl_dt):
+            return False
+        else:
+            return True
+
+    @property
+    def is_strict_todo(self) -> bool:
+        """is task's status todo and not over due"""
+        if (self.status == "todo") and (not self.is_over_due):
+            return True
+        return False
+    
     def update_status(self, new_status: TASK_STATUS) -> bool:
         if self.status == new_status:
             return True

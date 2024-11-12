@@ -53,12 +53,30 @@ List all tasks
 ```shell
 todo ls
 ```
+```txt
+┏━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃ id ┃ Status ┃ Task                                 ┃  Deadline  ┃ Finish Date ┃
+┡━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ 10 │  expr  │ Apply a card for my electroic-bike   │ 2024-11-10 │      /      │
+├────┼────────┼──────────────────────────────────────┼────────────┼─────────────┤
+│ 9  │  todo  │ ask Liuke about perf monitor scripts │ 2024-11-13 │      /      │
+├────┼────────┼──────────────────────────────────────┼────────────┼─────────────┤
+│ 8  │  done  │ start a pr in rich                   │ 2024-11-12 │ 2024-11-12  │
+│ 7  │  done  │ refactor template and ask            │ 2024-11-12 │ 2024-11-11  │
+│ 6  │  done  │ find ICBC card                       │ 2024-11-12 │ 2024-11-12  │
+│ 4  │  done  │ finish todo rm                       │ 2024-11-10 │ 2024-11-10  │
+│ 3  │  done  │ go to ICBC update ID info            │ 2024-11-12 │ 2024-11-12  │
+│ 1  │  done  │ add some translation                 │ 2024-11-10 │ 2024-11-10  │
+└────┴────────┴──────────────────────────────────────┴────────────┴─────────────┘
+```
 
-List tasks by given status (`todo`|`done`)
+List tasks by given status (`todo`|`done`|`expr`)
 
 ```shell
-todo ls ${status}
+todo ls --${status}
 ```
+
+More options: [`todo ls`](./docs/todo_ls.md)
 
 ### Set a Task Done
 
@@ -95,5 +113,6 @@ pip install -e .
 
 - [Task class](./docs/task_class.md)
   - [Task status](./docs/task_status.md)
+- [Design of `todo ls`](./docs/todo_ls.md)
 - [Design of `todo rm`](./docs/todo_rm.md)
 - [Design of `todo mod`](./docs/todo_mod.md)

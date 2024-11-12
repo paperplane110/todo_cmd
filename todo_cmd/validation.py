@@ -21,6 +21,9 @@ def val_date_fmt(date_str: str) -> Optional[datetime]:
     Returns:
         Optional[datetime]: if valid return dt, otherwise None
     """
+    if type(date_str) != str:
+        return None
+    
     formats = [
         "%Y-%m-%d_%H:%M:%S",  # 格式 1: "2024-01-01_12:30:45"
         "%Y-%m-%d",           # 格式 2: "2024-01-01"
