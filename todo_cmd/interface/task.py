@@ -1,8 +1,11 @@
 import datetime
 from typing import Literal, List
 
+from todo_cmd.validation import val_date_fmt
+
 
 TASK_STATUS = Literal["todo", "done"]
+DATE_ATTR = Literal["ddl", "create_date", "done_date"]
 
 
 class Task:
@@ -64,6 +67,24 @@ status={self.status}, ddl:{self.ddl}, tags={self.tags})"
 
         # ? are there any other choices
         return False
+    
+    def __update_date(self, date_str: str, attr: DATE_ATTR) -> bool:
+        """validate and update date attribute"""
+        dt = val_date_fmt(date_str)
+        if dt is None:
+            return False
+        dt_str = dt.strftime("%Y-%m-%d_%H:%M:%S")
+        setattr(self, attr, dt_str)
+        return True
+
+    def update_ddl(self, date_str: str) -> bool:
+        return self.__update_date(date_str, "ddl")
+    
+    def update_created_date(self, date_str: str) -> bool:
+        return self.__update_date(date_str, "create_date")
+    
+    def update_done_date(self, date_str: str) -> bool:
+        return self.__update_date(date_str, "done_date")
 
 
 def task_list_serializer(obj) -> dict:

@@ -59,7 +59,9 @@ def ls(all: bool):
     done_list_len = len(done_list)
 
     # Some sort logic
-    task_list.sort(key=lambda task: task.ddl, reverse=True)    # default: sort tasks by status
+    # default: sort tasks by status
+    for l in [todo_list, over_due_list, done_list]:
+        l.sort(key=lambda task: task.created_date, reverse=True)
 
     table = Table(
         # show_lines=True

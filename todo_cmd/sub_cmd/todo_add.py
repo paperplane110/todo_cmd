@@ -45,8 +45,6 @@ def add(task: str, deadline: str):
     ddl_dt = val_date_fmt(deadline)
     deadline = ddl_dt.strftime("%Y-%m-%d_%H:%M:%S")
 
-    
-
     next_id = todo_interface.max_id + 1
     task_obj = Task(
         task=task,
@@ -55,7 +53,6 @@ def add(task: str, deadline: str):
         status="todo"
     )
     todo_interface.add_todo(task_obj)
-    print("\n")
     t.info(f"{TRANS('new_task')}: {next_id} | {task}")
     t.info(f"{TRANS('created_date')}: {now_str}")
     t.info(f"{TRANS('ddl')}: {deadline}")

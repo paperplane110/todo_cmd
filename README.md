@@ -1,8 +1,15 @@
-# Todo in Command Line
+```
+                                                   __
+ __________  ____  ____        _________ ___  ____/ /
+/_  __/ __ \/ __ \/ __ \______/ ___/ __ `__ \/ __  / 
+ / / / /_/ / /_/ / /_/ /_____/ /__/ / / / / / /_/ /  
+/_/  \____/_____/\____/      \___/_/ /_/ /_/\__,_/   
+                         
+```
 
-欢迎使用 todo-cmd，这是一个简单的工具，帮助您在命令行中轻松管理代办、记录完成事项。
+欢迎使用 **todo-cmd**，这是一个简单的工具，帮助您在命令行中轻松管理代办、记录完成事项。
 
-Welcome to the todo-cmd!
+Welcome to the **todo-cmd**!
 This is a simple tool to help you manage your tasks.
 
 ## 1. 安装｜Installation

@@ -1,15 +1,12 @@
 """Modify a task"""
-from typing import Tuple
 from datetime import datetime
-# import readline
 
 import rich_click as click
-from rich.prompt import Prompt
 
 import todo_cmd.templates as t
 from todo_cmd.validation import val_ddl_callback
 from todo_cmd.interface.todo import todo_interface
-from todo_cmd.interface.task import TASK_STATUS, Task
+from todo_cmd.interface.task import TASK_STATUS
 from todo_cmd.language import TRANS
 
 
@@ -21,14 +18,13 @@ from todo_cmd.language import TRANS
               type=click.Choice(["todo", "done"]), 
               help=TRANS("mod_help_status"))
 @click.option("-ddl", "--ddl",
-              type=str,
               callback=val_ddl_callback,
               help=TRANS("mod_help_ddl"))
 def mod(
         id: int,
         task_des: str,
         status: TASK_STATUS,
-        ddl: str
+        ddl: datetime
     ):
     """修改任务 | Modify the task by given id"""
     # Is id valid?
@@ -45,11 +41,15 @@ def mod(
         # ask new task
         task_des = t.ask(TRANS("task"), default=task.task)
         task.task = task_des
+
         status = t.ask(TRANS("status"), default=task.status)
         if not task.update_status(status):
             t.error("update_status_failed")
+
         ddl = t.ask(TRANS("ddl"), default=task.ddl)
-        task.ddl = ddl
+        if not task.update_ddl(ddl):
+            t.error(TRANS("date_fmt_not_support"))
+
         todo_interface.save_todos()
         t.done(TRANS("mod_success"))
         return 0
@@ -63,7 +63,8 @@ def mod(
             t.error("update_status_failed")
     
     if ddl:
-        task.ddl = ddl
+        ddl_str = ddl.strftime("%Y-%m-%d_%H:%M:%S")
+        task.update_ddl(ddl_str)
 
     todo_interface.save_todos()
     t.done(TRANS("mod_success"))
