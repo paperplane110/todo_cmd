@@ -31,5 +31,5 @@ def log(task: str):
         done_date=log_date
     )
     todo_interface.add_todo(task_obj)
-    t.info(f"{TRANS('new_task')}: \[{next_id}] {task}")
+    t.info(f"{TRANS('new_task')}: <{next_id}> {task}")
     t.info(f"{TRANS('created_date')}: {log_date}")
