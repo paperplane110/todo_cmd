@@ -11,6 +11,8 @@
 
 ```shell
 todo mod ${id}
+
+todo m ${id}
 ```
 
 仅提供 `id` 时，会逐条询问需要修改的点
@@ -21,14 +23,17 @@ todo mod ${id}
 
 属性作为 options，有：
 
-- `--task`
-- `--status`
-- `--ddl`
+- `--task`/`-t`
+- `--status`/`-s`
+- `--ddl`/`-ddl`
 
 使用方法为:
 
 ```shell
 todo mod 4 --status done
+
+# or
+todo mod 4 -s done
 
 # or
 todo mod 4 --status done --task "complete feat1"
