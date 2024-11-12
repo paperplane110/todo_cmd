@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "todo-cmd"
+version = "0.1.0"
+description = "A command line tool for managing todos."
+authors = ["paperplane110 <1374736640@qq.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+rich = "^13.9.4"
+click = "^8.1.7"
+rich-click = "^1.8.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
