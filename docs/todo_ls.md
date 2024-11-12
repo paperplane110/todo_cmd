@@ -53,3 +53,29 @@ Status:
 ```
 todo ls --todo
 ```
+
+## Options Composition
+
+- 🕶 When id or ids is given, other options will be omitted
+
+```shell
+# will only display task 1 2 3
+todo ls 1 2 3 --week --done
+```
+
+- ✅ Valid
+
+```shell
+# Search tasks in last week, whose status is done
+todo ls --week --todo
+
+# Search tasks between 20240101 and 20241231, whose status is done
+todo ls -s 20240101 -e 20241231 --done
+```
+
+- ❌ Invalid
+
+```shell
+todo ls --week -s 20240101 -e 20241231
+todo ls --todo --expr
+```
