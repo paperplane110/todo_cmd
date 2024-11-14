@@ -24,7 +24,10 @@ def rm(ids: Tuple[int]):
             console.print(t.error(f"{TRANS('task_not_found')}, id: {id}"))
             exit(1)
 
-    if len(ids) == 1:
+    if len(ids) == 0:
+        t.error(TRANS("rm_task_is_empty"))
+        return 0
+    elif len(ids) == 1:
         # only remove one, won't ask for confirmation
         is_rm = True
     else:

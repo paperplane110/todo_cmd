@@ -41,7 +41,7 @@ def val_date_fmt(date_str: str) -> Optional[datetime]:
     return None
 
 
-def val_ddl_callback(ctx, param, value):
+def val_date_fmt_callback(ctx, param, value):
     """validation for --deadline or other date option"""
     if value is None:
         return None

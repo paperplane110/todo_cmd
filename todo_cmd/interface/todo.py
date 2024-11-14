@@ -5,6 +5,7 @@ from typing import List, Optional
 from todo_cmd.sub_cmd.init_todo import main as init_todo
 from todo_cmd.interface.task import (
     Task,
+    TASK_STATUS,
     task_list_serializer,
     task_list_deserializer
 )
@@ -16,7 +17,7 @@ class TodoInterface:
 
     def __init__(self):
         self.max_id = -1
-        self.todo_list = self.read_todo()
+        self.task_list = self.read_todo()
 
     def read_todo(self) -> List[Task]:
         """read local todo file
@@ -41,7 +42,7 @@ class TodoInterface:
         """Save task list to disk"""
         with open(self.todo_file, "w") as fp:
             json.dump(
-                self.todo_list,
+                self.task_list,
                 fp,
                 default=task_list_serializer,
                 indent=2
@@ -49,7 +50,7 @@ class TodoInterface:
 
     def add_todo(self, task: Task) -> bool:
         """add task to todo and save to disk"""
-        self.todo_list.append(task)
+        self.task_list.append(task)
         self.save_todos()
         self.max_id += 1
 
@@ -59,20 +60,27 @@ class TodoInterface:
             return None
         if req_id < 0:
             return None
-        for task in self.todo_list:
+        for task in self.task_list:
             if task.task_id == req_id:
                 return task
         return None
     
+    def find_tasks_by_status(self, status: TASK_STATUS) -> List[Task]:
+        res_list = list(filter(
+            lambda task: task.status == status, 
+            self.task_list
+        ))
+        return res_list
+    
     def remove_task(self, req_id: int) -> Optional[Task]:
         """remove task from todo list"""
         is_found = False
-        for idx, task in enumerate(self.todo_list):
+        for idx, task in enumerate(self.task_list):
             if task.task_id == req_id:
                 is_found = True
                 break
         if is_found:
-            task = self.todo_list.pop(idx)
+            task = self.task_list.pop(idx)
             self.save_todos()
         else:
             task = None

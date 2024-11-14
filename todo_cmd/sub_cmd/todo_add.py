@@ -5,8 +5,9 @@ import readline
 import rich_click as click
 
 import todo_cmd.templates as t
+from todo_cmd import show
 from todo_cmd.language import TRANS
-from todo_cmd.validation import val_ddl_callback, val_date_fmt
+from todo_cmd.validation import val_date_fmt_callback, val_date_fmt
 from todo_cmd.interface.config import CONFIG
 from todo_cmd.interface.task import Task
 from todo_cmd.interface.todo import todo_interface
@@ -20,7 +21,7 @@ DDL_DELTA = int(CONFIG["ddl_delta"])
 @click.option(
     "-ddl", "--deadline", 
     default=None,
-    callback=val_ddl_callback,
+    callback=val_date_fmt_callback,
     help=TRANS("help_ddl"))
 def add(task: str, deadline: str):
     """新建任务 | Add a task"""
@@ -53,6 +54,7 @@ def add(task: str, deadline: str):
         status="todo"
     )
     todo_interface.add_todo(task_obj)
-    t.info(f"{TRANS('new_task')}: {next_id} | {task}")
-    t.info(f"{TRANS('created_date')}: {now_str}")
-    t.info(f"{TRANS('ddl')}: {deadline}")
+    show.table([task_obj])
+    # t.info(f"{TRANS('new_task')}: {next_id} | {task}")
+    # t.info(f"{TRANS('created_date')}: {now_str}")
+    # t.info(f"{TRANS('ddl')}: {deadline}")

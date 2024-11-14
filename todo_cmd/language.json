@@ -83,6 +83,10 @@
         "en": "Task not found",
         "zh": "未找到任务"
     },
+    "rm_task_is_empty": {
+        "en": "Id is empty, please input tasks' id you want to remove",
+        "zh": "id 为空，请输入你要删除的任务 id"
+    },
     "is_rm_task": {
         "en": "Are you sure to rm",
         "zh": "是否删除任务"

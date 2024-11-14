@@ -10,6 +10,7 @@ console = Console()
 
 DONE_MARK = "[default on green4] √ [/]"
 TODO_MARK = "[default on dodger_blue2] - [/]"
+WARN_MARK = "[default on dark_orange] ! [/]"
 ERROR_MARK = "[default on red] x [/]"
 ASK_MARK = "[default on deep_sky_blue1] ? [/]"
 INFO_MARK = "[default on bright_black] * [/]"
@@ -23,6 +24,11 @@ def done(*args, **kwargs):
 @wraps(console.print)
 def todo(*args, **kwargs):
     console.print(TODO_MARK, *args, **kwargs)
+
+
+@wraps(console.print)
+def warn(*args, **kwargs):
+    console.print(WARN_MARK, *args, **kwargs)
 
 
 @wraps(console.print)

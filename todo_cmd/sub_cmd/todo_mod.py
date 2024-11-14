@@ -4,7 +4,8 @@ from datetime import datetime
 import rich_click as click
 
 import todo_cmd.templates as t
-from todo_cmd.validation import val_ddl_callback
+from todo_cmd import show
+from todo_cmd.validation import val_date_fmt_callback
 from todo_cmd.interface.todo import todo_interface
 from todo_cmd.interface.task import TASK_STATUS
 from todo_cmd.language import TRANS
@@ -18,7 +19,7 @@ from todo_cmd.language import TRANS
               type=click.Choice(["todo", "done"]), 
               help=TRANS("mod_help_status"))
 @click.option("-ddl", "--ddl",
-              callback=val_ddl_callback,
+              callback=val_date_fmt_callback,
               help=TRANS("mod_help_ddl"))
 def mod(
         id: int,
@@ -51,6 +52,7 @@ def mod(
             t.error(TRANS("date_fmt_not_support"))
 
         todo_interface.save_todos()
+        show.table([task])
         t.done(TRANS("mod_success"))
         return 0
     
@@ -67,4 +69,5 @@ def mod(
         task.update_ddl(ddl_str)
 
     todo_interface.save_todos()
+    show.table([task])
     t.done(TRANS("mod_success"))
