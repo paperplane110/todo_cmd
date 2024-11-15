@@ -28,7 +28,7 @@ def add(task: str, deadline: str):
     # check input task
     task = " ".join(task)
     if len(task.strip()) == 0:
-        t.error(f"todo 内容不能为空")
+        t.error(TRANS("task_should_not_be_empty"))
         exit(1)
     t.info(f"{TRANS('new_task')}: {task}")
 
@@ -41,7 +41,7 @@ def add(task: str, deadline: str):
         default_ddl_str = default_ddl_dt.strftime("%Y-%m-%d_%H:%M:%S")
 
         t.info(f"{TRANS('now')}: {now_str}")
-        deadline = t.ask("Please specify a deadline", default=default_ddl_str)
+        deadline = t.ask(TRANS("ddl"), default=default_ddl_str)
 
     ddl_dt = val_date_fmt(deadline)
     if not ddl_dt:

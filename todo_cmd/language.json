@@ -67,6 +67,10 @@
         "en": "Done    Tasks",
         "zh": "已完成个数"
     },
+    "task_should_not_be_empty": {
+        "en": "Task should not be empty",
+        "zh": "任务内容不能为空"
+    },
     "log_should_not_be_empty": {
         "en": "Log should not be empty",
         "zh": "日志内容不能为空"
