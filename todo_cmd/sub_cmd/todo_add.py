@@ -44,6 +44,9 @@ def add(task: str, deadline: str):
         deadline = t.ask("Please specify a deadline", default=default_ddl_str)
 
     ddl_dt = val_date_fmt(deadline)
+    if not ddl_dt:
+        t.error(TRANS("date_fmt_not_support"))
+        exit(1)
     deadline = ddl_dt.strftime("%Y-%m-%d_%H:%M:%S")
 
     next_id = todo_interface.max_id + 1
