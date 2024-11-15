@@ -57,6 +57,7 @@ def add(task: str, deadline: str):
         status="todo"
     )
     todo_interface.add_todo(task_obj)
+    t.done(TRANS("new_task"))
     show.table([task_obj])
     # t.info(f"{TRANS('new_task')}: {next_id} | {task}")
     # t.info(f"{TRANS('created_date')}: {now_str}")
