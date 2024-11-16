@@ -51,7 +51,7 @@ TimeRangeType = Literal[
 ]
 ArgsType = Literal["ids", "time_range", "none"]
 ProcessedArgsType = Union[List[int], TimeRangeType, None]
-
+FilterStatusType = Literal["todo", "done", "expr"]
 
 def check_args(args: tuple) -> Tuple[ArgsType, ProcessedArgsType]:
     """Check args input, There are three situations
@@ -113,7 +113,7 @@ def find_tasks_by_time_range(time_range: TimeRangeType, task_list: List[Task]):
         ...
     
 
-def check_status_flag(todo: bool, done: bool, expr: bool) -> str:
+def check_status_flag(todo: bool, done: bool, expr: bool) -> FilterStatusType:
     """check input flag, only output one
 
     Args:
@@ -136,7 +136,7 @@ def check_status_flag(todo: bool, done: bool, expr: bool) -> str:
         return "done"
     else:
         return "expr"
-    
+        
 
 @click.command()
 @click.argument("args", nargs=-1)
@@ -164,10 +164,24 @@ def ls(
         find_tasks_by_time_range(input_args, task_list)
     else:
         pass
-    status_flag = check_status_flag(is_show_todo, is_show_expr, is_show_done)
+    status_flag = check_status_flag(is_show_todo,is_show_done, is_show_expr)
 
     if input_args is None and status_flag is None:
+        # show all tasks
         task_list = todo_interface.task_list
+    elif input_args is None:
+        # just filter with status
+        if status_flag == "todo":
+            task_list = todo_interface.find_tasks_by_status("todo")
+        if status_flag == "done":
+            task_list = todo_interface.find_tasks_by_status("done")
+        if status_flag == "expr":
+            raw_task_list = todo_interface.find_tasks_by_status("todo")
+            task_list = list(filter(
+                lambda task: task.is_over_due,
+                raw_task_list
+            ))
+
 
     if len(task_list) == 0:
         t.info(TRANS("task_not_found"))
