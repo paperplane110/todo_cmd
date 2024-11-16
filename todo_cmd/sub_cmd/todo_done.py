@@ -45,7 +45,4 @@ def done(ids:Tuple[int]):
     if len(valid_ids):
         show.table(mod_success_task_list)
         t.done(f"{TRANS('task_done')}: {valid_ids}")
-
-
-    # TODO show the table of results
     

@@ -48,12 +48,12 @@ def val_date_fmt_callback(ctx, param, value):
     try:
         dt = val_date_fmt(value)
     except:
-        t.error(f"{TRANS('ddl')}: {value}")
+        t.error(f"{TRANS('input_date')}: {value}")
         t.error(TRANS("date_fmt_not_support"))
         exit(1)
 
     if not dt:
-        t.error(f"{TRANS('ddl')}: {value}")
+        t.error(f"{TRANS('input_date')}: {value}")
         t.error(TRANS("date_fmt_not_support"))
         exit(1)
 

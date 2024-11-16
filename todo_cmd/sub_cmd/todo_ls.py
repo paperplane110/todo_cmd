@@ -8,16 +8,15 @@ TODO: add more filter methods
     - status
     - date
 """
-import datetime
-from typing import List, Literal, Union, Tuple
+from datetime import datetime
+from typing import List, Literal, Union, Tuple, Optional
 
 import rich_click as click
-from rich.table import Table
 
 import todo_cmd.templates as t
 import todo_cmd.show as show 
 from todo_cmd.language import TRANS
-from todo_cmd.validation import val_date_fmt_callback
+from todo_cmd.validation import val_date_fmt_callback, val_date_fmt
 from todo_cmd.interface.todo import todo_interface
 from todo_cmd.interface.task import Task
 
@@ -113,7 +112,7 @@ def find_tasks_by_time_range(time_range: TimeRangeType, task_list: List[Task]):
         ...
     
 
-def check_status_flag(todo: bool, done: bool, expr: bool) -> FilterStatusType:
+def check_status_flag(todo: bool, done: bool, expr: bool) -> Optional[FilterStatusType]:
     """check input flag, only output one
 
     Args:
@@ -138,6 +137,34 @@ def check_status_flag(todo: bool, done: bool, expr: bool) -> FilterStatusType:
         return "expr"
         
 
+def check_start_end_option(start: datetime, end: datetime):
+    if start and end:
+        if start > end:
+            t.error(f"start: {start}")
+            t.error(f"end  : {end}")
+            t.error(TRANS("end_should_later_than_start"))
+            exit(1)
+
+
+OperatorType = Literal["gt", "lt"]
+def filter_compare_date(
+        input_dt: datetime,
+        task_list: List[Task],
+        operator: OperatorType = "gt",
+        compare_attr: str="created_date"
+    ) -> List[Task]:
+    res_list = []
+    for task in task_list:
+        task_dt = val_date_fmt(getattr(task, compare_attr))
+        if operator == "gt":
+            if task_dt > input_dt:
+                res_list.append(task)
+        else:
+            if task_dt <= input_dt:
+                res_list.append(task)
+    return res_list
+    
+
 @click.command()
 @click.argument("args", nargs=-1)
 @click.option("-s", "--start", callback=val_date_fmt_callback)
@@ -147,14 +174,14 @@ def check_status_flag(todo: bool, done: bool, expr: bool) -> FilterStatusType:
 @click.option("-ex", "--expr", "is_show_expr", is_flag=True)
 @click.option("-v", "--verbose", is_flag=True)
 def ls(
-    args: tuple, 
-    start: datetime,
-    end: datetime,
-    is_show_todo: bool, 
-    is_show_done: bool,
-    is_show_expr: bool,
-    verbose: bool
-):
+        args: tuple, 
+        start: datetime,
+        end: datetime,
+        is_show_todo: bool, 
+        is_show_done: bool,
+        is_show_expr: bool,
+        verbose: bool
+    ):
     """展示任务 | Show all tasks"""
     task_list = []
     args_type, input_args = check_args(args)
@@ -163,13 +190,25 @@ def ls(
     elif args_type == "time_range":
         find_tasks_by_time_range(input_args, task_list)
     else:
-        pass
+        task_list = todo_interface.task_list
+    check_start_end_option(start, end)
     status_flag = check_status_flag(is_show_todo,is_show_done, is_show_expr)
 
-    if input_args is None and status_flag is None:
-        # show all tasks
-        task_list = todo_interface.task_list
-    elif input_args is None:
+    # 没有任何输入：展示全部
+    # 有 args:ids 限制，可以经过时间范围、任务状态过滤
+    # 有 args:time_range 限制，不经过时间范围，要经过任务状态
+    # 无 args，有时间范围，可经过任务状态筛选
+    # 也就是说，任务筛选无论如何都要经过
+    if (input_args is None) and (start or end):
+        # args 未确定时间范围，用户通过 start end 参数确定了时间
+        if start:
+            # 筛选 create 日期大于 start 的任务
+            task_list = filter_compare_date(start, task_list, "gt")
+        if end:
+            # 筛选 create 日期小于 end 的任务
+            task_list = filter_compare_date(end, task_list, "lt")
+
+    if status_flag:
         # just filter with status
         if status_flag == "todo":
             task_list = todo_interface.find_tasks_by_status("todo")
@@ -181,7 +220,6 @@ def ls(
                 lambda task: task.is_over_due,
                 raw_task_list
             ))
-
 
     if len(task_list) == 0:
         t.info(TRANS("task_not_found"))

@@ -35,6 +35,10 @@
         "en": "Deadline",
         "zh": "截止日期"
     },
+    "input_date": {
+        "en": "Input date",
+        "zh": "输入日期"
+    },
     "finish_date": {
         "en": "Finish Date",
         "zh": "完成日期"
@@ -66,6 +70,10 @@
     "done_tasks": {
         "en": "Done    Tasks",
         "zh": "已完成个数"
+    },
+    "end_should_later_than_start": {
+        "en": "End date should be later than start date",
+        "zh": "结束时间应该晚于开始时间"
     },
     "task_should_not_be_empty": {
         "en": "Task should not be empty",
