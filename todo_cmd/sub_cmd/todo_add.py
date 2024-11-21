@@ -1,6 +1,5 @@
 """Add a new task"""
 import datetime
-import readline
 
 import rich_click as click
 

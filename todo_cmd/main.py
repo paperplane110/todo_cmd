@@ -1,3 +1,5 @@
+import os
+
 import rich_click as click
 from rich.console import Console
 
@@ -8,6 +10,15 @@ from todo_cmd.sub_cmd.todo_rm import rm
 from todo_cmd.sub_cmd.todo_mod import mod
 from todo_cmd.sub_cmd.todo_done import done
 from todo_cmd.sub_cmd.todo_config import config
+
+
+if os.name == 'nt':
+    try:
+        import pyreadline
+    except:
+        print("readline is disabled in Windows. Please run: pip install pyreadline")
+elif os.name == 'posix':
+    import readline
 
 
 console = Console()
