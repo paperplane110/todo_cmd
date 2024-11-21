@@ -24,4 +24,32 @@ def read_config() -> dict:
             conf = json.load(f)
     return conf
 
+
+def val_attr_value(attr: str, value: str) -> bool:
+    if attr == "lang":
+        if value not in ["zh", "en"]:
+            t.error("language should be either 'zh' or 'en'")
+            return False
+    elif attr == "ddl_delta":
+        if not value.isdigit():
+            t.error("ddl_delta should be an integer and larger than 0")
+            return False
+        elif int(value) < 0:
+            t.error("ddl_delta should be an integer and larger than 0")
+            return False
+    else:
+        pass
+    return True
+
+
+def set_config(attr: str, value):
+    if not val_attr_value:
+        return 1
+    config = read_config()
+    config[attr] = value
+    with open(CONFIG_FILE, "w") as fp:
+        json.dump(config, fp, indent=2)
+    t.done(f"Set config done: {attr} = {value}")
+
+
 CONFIG = read_config()

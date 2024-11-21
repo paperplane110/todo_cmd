@@ -7,6 +7,7 @@ from todo_cmd.sub_cmd.todo_log import log
 from todo_cmd.sub_cmd.todo_rm import rm
 from todo_cmd.sub_cmd.todo_mod import mod
 from todo_cmd.sub_cmd.todo_done import done
+from todo_cmd.sub_cmd.todo_config import config
 
 
 console = Console()
@@ -35,6 +36,8 @@ def main():
 
     todo.add_command(mod)
     todo.add_command(mod, "m")
+
+    todo.add_command(config)
 
     todo.add_command(done)
     

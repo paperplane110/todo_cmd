@@ -142,5 +142,13 @@
     "please_input_task_id": {
         "en": "Please input tasks' id",
         "zh": "请输入要完成的任务 id"
+    },
+    "ddl_default_invalid": {
+        "en": "ddl_delta should be integer and larger than 0",
+        "zh": "截止日期应为大于0的整数"
+    },
+    "empty_attr_value": {
+        "en": "Please input the value for the attr",
+        "zh": "请输入配置的值"
     }
 }

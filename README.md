@@ -101,6 +101,8 @@ todo m ${task_id}
 
 More options: [`todo mod`](./docs/todo_mod.md)
 
+### [Configuration](./docs/todo_config.md)
+
 ## 3. 开发者｜For Developer
 
 Install todo_cmd in editable mode
