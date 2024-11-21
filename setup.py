@@ -13,7 +13,7 @@ def read_readme():
 
 setup(
     name='todo_cmd',
-    version='1.0.0',
+    version='0.9.0',
     description='A command line tool for managing todos.',
     author='Tianyu Yuan',
     author_email='1374736640@qq.com',
