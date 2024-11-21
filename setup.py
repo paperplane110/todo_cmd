@@ -13,7 +13,7 @@ def read_readme():
 
 setup(
     name='todo_cmd',
-    version='0.9.1',
+    version='0.9.2',
     description='A command line tool for managing todos.',
     author='Tianyu Yuan',
     author_email='1374736640@qq.com',
@@ -31,4 +31,8 @@ setup(
         'rich',
         'rich-click'
     ],
+    package_data={
+        'todo_cmd': ['todo_cmd/*.json'],  # Include all JSON files
+    },
+    include_package_data=True
 )
