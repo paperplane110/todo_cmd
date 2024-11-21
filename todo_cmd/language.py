@@ -11,7 +11,7 @@ console = Console()
 current_dir = os.path.dirname(os.path.abspath(__file__))
 language_setting_path = os.path.join(current_dir, "language.json")
 
-with open(language_setting_path, "r") as fp:
+with open(language_setting_path, "r", encoding="utf-8") as fp:
     lang_dict = json.load(fp)
 
 LANG = Literal["zh", "en"]

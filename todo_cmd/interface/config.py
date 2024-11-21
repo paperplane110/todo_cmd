@@ -13,14 +13,14 @@ CONFIG_FILE = os.path.join(TODO_FOLDER, "config.json")
 def read_config() -> dict:
     conf = None
     try:
-        with open(CONFIG_FILE, "r") as f:
+        with open(CONFIG_FILE, "r", encoding="utf-8") as f:
             conf = json.load(f)
     except FileNotFoundError:
         t.error("~/.todo/config.json 文件不存在, 请初始化配置 [b cyan3]todo[/]")
         t.error("~/.todo/config.json file not found, please run [b cyan3]todo[/]")
         init_todo()
     finally:
-        with open(CONFIG_FILE, "r") as f:
+        with open(CONFIG_FILE, "r", encoding="utf-8") as f:
             conf = json.load(f)
     return conf
 
