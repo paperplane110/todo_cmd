@@ -14,12 +14,27 @@ This is a simple tool to help you manage your tasks.
 
 ## 1. 安装｜Installation
 
-目前仅支持通过源码安装，需要 python3.8^
+有多种安装方法，推荐使用 `uv` 或 `pipx`
+
+### 1.1 👍 uv 或 pipx 安装 | Use `uv` or `pipx`
+
+```bash
+# if you don't have uv
+pip3 install uv
+
+# Use uv
+uvx todo-cmd
+
+# or use pipx
+pipx install todo-cmd
+```
+
+### 1.2 pip 安装 | pip install
 
 ```shell
 git clone https://github.com/paperplane110/todo_cmd.git
 cd todo_cmd
-pip3 install -e .
+pip3 install .
 ```
 
 ## 2. 使用方法｜Usage
