@@ -6,7 +6,7 @@ from rich.table import Table
 
 import todo_cmd.templates as t
 from todo_cmd.language import TRANS
-from todo_cmd.interface.task import Task
+from todo_cmd.interface.task import Task, TASK_PRIORITY
 from todo_cmd.validation import val_date_fmt
 
 
@@ -55,6 +55,22 @@ def simplify_date(date_str: str) -> str:
     return dt.strftime("%Y-%m-%d")
 
 
+def label_priority(priority: TASK_PRIORITY):
+    """convert plain priority string to colored label
+
+    Args:
+        priority (str): p0, p1, p2, p3
+    """
+    if priority == "p0":
+        return t.red_label(priority)
+    elif priority == "p1":
+        return t.orange_label(priority)
+    elif priority == "p2":
+        return t.green_label(priority)
+    else:
+        return t.gray_label(priority)
+
+
 def table(task_list: List[Task], verbose: bool=False):
     """Display tasks table
 
@@ -84,6 +100,7 @@ def table(task_list: List[Task], verbose: bool=False):
                 table.add_row(
                     str(task.task_id),
                     status_str,
+                    label_priority(task.priority),
                     task.task,
                     simplify_date(task.ddl),
                     simplify_date(task.done_date),
@@ -93,6 +110,7 @@ def table(task_list: List[Task], verbose: bool=False):
                 table.add_row(
                     str(task.task_id),
                     status_str,
+                    label_priority(task.priority),
                     task.task,
                     task.ddl,
                     task.created_date,
@@ -111,6 +129,7 @@ def table(task_list: List[Task], verbose: bool=False):
     table = Table()
     table.add_column("id", style="cyan", no_wrap=True)
     table.add_column(TRANS("status"), no_wrap=True)
+    table.add_column(TRANS("priority"), no_wrap=True)
     table.add_column(TRANS("task"), style="magenta")
     table.add_column(TRANS("ddl"), justify="center")
     if verbose:

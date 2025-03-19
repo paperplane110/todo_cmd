@@ -8,7 +8,7 @@ TODO: add more filter methods
     - status
     - date
 """
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Literal, Union, Tuple, Optional
 
 import rich_click as click
@@ -99,9 +99,34 @@ def find_tasks_by_ids(ids: List[int], task_list: List[Task]):
         t.warn(f"task {missing_list} not found")
 
 
+OperatorType = Literal["gt", "lt"]
+def filter_compare_date(
+        input_dt: datetime,
+        task_list: List[Task],
+        operator: OperatorType = "gt",
+        compare_attr: str="created_date"
+    ) -> List[Task]:
+    res_list = []
+    for task in task_list:
+        task_dt = val_date_fmt(getattr(task, compare_attr))
+        if operator == "gt":
+            if task_dt > input_dt:
+                res_list.append(task)
+        else:
+            if task_dt <= input_dt:
+                res_list.append(task)
+    return res_list
+
+
+# @deprecated
 def find_tasks_by_time_range(time_range: TimeRangeType, task_list: List[Task]):
+    task_list = todo_interface.task_list
     if time_range == "t" or time_range == "today":
-        ...
+        today = datetime.now().strftime("%Y-%m-%d")
+        today_dt = datetime.strptime(today, "%Y-%m-%d")
+        tmr_dt = today_dt + timedelta(days=1)
+        task_list = filter_compare_date(today_dt, task_list, "gt")
+        task_list = filter_compare_date(tmr_dt, task_list, "lt")
     elif time_range == "yest" or time_range == "yesterday":
         ...
     elif time_range == "w" or time_range == "week":
@@ -145,25 +170,6 @@ def check_start_end_option(start: datetime, end: datetime):
             t.error(TRANS("end_should_later_than_start"))
             exit(1)
 
-
-OperatorType = Literal["gt", "lt"]
-def filter_compare_date(
-        input_dt: datetime,
-        task_list: List[Task],
-        operator: OperatorType = "gt",
-        compare_attr: str="created_date"
-    ) -> List[Task]:
-    res_list = []
-    for task in task_list:
-        task_dt = val_date_fmt(getattr(task, compare_attr))
-        if operator == "gt":
-            if task_dt > input_dt:
-                res_list.append(task)
-        else:
-            if task_dt <= input_dt:
-                res_list.append(task)
-    return res_list
-    
 
 @click.command()
 @click.argument("args", nargs=-1)

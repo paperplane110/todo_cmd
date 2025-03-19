@@ -6,6 +6,7 @@ from todo_cmd.validation import val_date_fmt
 
 TASK_STATUS = Literal["todo", "done"]
 DATE_ATTR = Literal["ddl", "create_date", "done_date"]
+TASK_PRIORITY = Literal["p0", "p1", "p2", "p3"]
 
 
 class Task:
@@ -19,6 +20,7 @@ class Task:
             created_date: str = None,
             done_date: str = None,
             tags: List[str] = [],
+            priority: TASK_PRIORITY = "p1",
         ):
         """Initialize a Task"""
         if not created_date:
@@ -32,6 +34,7 @@ class Task:
         self.status = status
         self.done_date = done_date
         self.tags = tags
+        self.priority = priority
         
     def to_json(self) -> dict:
         """serialize the task to dict"""
@@ -42,12 +45,13 @@ class Task:
             "ddl": self.ddl,
             "status": self.status,
             "done_date": self.done_date,
-            "tags": self.tags
+            "tags": self.tags,
+            "priority": self.priority
         }
     
     def __repr__(self):
         return f"Task(id={self.task_id}, created_date={self.created_date}, task={self.task}, \
-status={self.status}, ddl:{self.ddl}, tags={self.tags})"
+status={self.status}, ddl:{self.ddl}, tags={self.tags}), priority={self.priority}"
     
     @property
     def is_done(self) -> bool:

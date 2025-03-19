@@ -12,7 +12,7 @@ from todo_cmd.interface.task import Task
 from todo_cmd.interface.todo import todo_interface
 
 # Load configuration
-DDL_DELTA = int(CONFIG["ddl_delta"])
+DDL_DELTA = int(CONFIG["ddl_delta"]) * 24 * 60 * 60
 
 
 @click.command()

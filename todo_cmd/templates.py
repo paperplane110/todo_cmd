@@ -51,9 +51,17 @@ def red_label(text: str) -> str:
     return f"[default on red3] {text} [/]"
 
 
+def orange_label(text: str) -> str:
+    return f"[default on dark_orange] {text} [/]"
+
+
 def blue_label(text: str) -> str:
     return f"[default on dodger_blue2] {text} [/]"
 
 
 def green_label(text: str) -> str:
     return f"[default on green4] {text} [/]"
+
+
+def gray_label(text: str) -> str:
+    return f"[default on bright_black] {text} [/]"

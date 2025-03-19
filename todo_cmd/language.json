@@ -31,6 +31,10 @@
         "en": "Task",
         "zh": "任务内容"
     },
+    "priority": {
+        "en": "Prio",
+        "zh": "重要"
+    },
     "ddl": {
         "en": "Deadline",
         "zh": "截止日期"
@@ -150,5 +154,25 @@
     "empty_attr_value": {
         "en": "Please input the value for the attr",
         "zh": "请输入配置的值"
+    },
+    "config_list": {
+        "en": "List all config",
+        "zh": "列出所有配置"
+    },
+    "config_edit": {
+        "en": "Edit config",
+        "zh": "编辑配置"
+    },
+    "config_ask_lang": {
+        "en": "Please select your language",
+        "zh": "请选择你的语言"
+    },
+    "config_ask_ddl_delta": {
+        "en": "Please input the number of days to extend the deadline for new tasks",
+        "zh": "请输入新建任务时截止日期自动延后多少天"
+    },
+    "config_edit_done": {
+        "en": "Config edit done",
+        "zh": "配置已修改"
     }
 }
