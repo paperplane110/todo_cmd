@@ -21,11 +21,17 @@ from todo_cmd.language import TRANS
 @click.option("-ddl", "--ddl",
               callback=val_date_fmt_callback,
               help=TRANS("mod_help_ddl"))
+@click.option(
+    "-p", "--priority",
+    type=str, default=None,
+    help=TRANS("mod_help_priority")
+)
 def mod(
         id: int,
         task_des: str,
         status: TASK_STATUS,
-        ddl: datetime
+        ddl: datetime,
+        priority: str
     ):
     """修改任务 | Modify the task by given id"""
     # Is id valid?
@@ -38,7 +44,10 @@ def mod(
         exit(1)
 
     # User only provides id, ask one by one
-    if (task_des is None) and (status is None) and (ddl is None):
+    if (task_des is None) and \
+        (status is None) and \
+        (ddl is None) and \
+        (priority is None):
         # ask new task
         task_des = t.ask(TRANS("task"), default=task.task)
         task.task = task_des
@@ -50,6 +59,9 @@ def mod(
         ddl = t.ask(TRANS("ddl"), default=task.ddl)
         if not task.update_ddl(ddl):
             t.error(TRANS("date_fmt_not_support"))
+
+        priority = t.ask(TRANS("ask_priority"), default=task.priority, choices=["p0", "p1", "p2", "p3"])
+        task.priority = priority
 
         todo_interface.save_todos()
         show.table([task])
@@ -67,6 +79,12 @@ def mod(
     if ddl:
         ddl_str = ddl.strftime("%Y-%m-%d_%H:%M:%S")
         task.update_ddl(ddl_str)
+
+    if priority:
+        if not priority.startswith("p"):
+            t.error(TRANS("priority_invalid"))
+            exit(1)
+        task.priority = priority
 
     todo_interface.save_todos()
     show.table([task])

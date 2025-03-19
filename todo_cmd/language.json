@@ -19,9 +19,21 @@
         "en": "Deadline, e.g. 20241212",
         "zh": "截止日期，比如：20241212"
     },
+    "help_priority": {
+        "en": "Priority important -> not: p0, p1, p2, p3",
+        "zh": "重要程度，重要 -> 不重要: p0, p1, p2, p3"
+    },
+    "priority_invalid": {
+        "en": "Priority must in [p0, p1, p2, p3]",
+        "zh": "重要程度必须是 p0, p1, p2, p3"
+    },
     "help_rm_id": {
         "en": "ID of the task you would like to remove",
         "zh": "希望删除的任务的 id"
+    },
+    "ask_priority": {
+        "en": "Please select priority",
+        "zh": "请选择重要程度"
     },
     "status": {
         "en": "Status",
@@ -122,6 +134,10 @@
     "mod_help_ddl": {
         "en": "Modify deadline, support YYYYmmdd, YYYY-mm-dd, YYYY-mm-dd_HH:MM:SS",
         "zh": "修改截止时间，支持格式 YYYYmmdd, YYYY-mm-dd, YYYY-mm-dd_HH:MM:SS"
+    },
+    "mod_help_priority": {
+        "en": "Modify priority",
+        "zh": "修改任务重要程度"
     },
     "date_fmt_not_support": {
         "en": "Date format error, must be YYYYmmdd, YYYY-mm-dd, YYYY-mm-dd_HH:MM:SS",

@@ -22,7 +22,13 @@ DDL_DELTA = int(CONFIG["ddl_delta"]) * 24 * 60 * 60
     default=None,
     callback=val_date_fmt_callback,
     help=TRANS("help_ddl"))
-def add(task: str, deadline: str):
+@click.option(
+    "-p", "--priority",
+    type=str,
+    default=None,
+    help=TRANS("help_priority")
+)
+def add(task: str, deadline: str, priority: str):
     """新建任务 | Add a task"""
     # check input task
     task = " ".join(task)
@@ -48,12 +54,16 @@ def add(task: str, deadline: str):
         exit(1)
     deadline = ddl_dt.strftime("%Y-%m-%d_%H:%M:%S")
 
+    if priority is None:
+        priority = t.ask(TRANS("ask_priority"), choices=["p0", "p1", "p2", "p3"])
+
     next_id = todo_interface.max_id + 1
     task_obj = Task(
         task=task,
         task_id=next_id,
         ddl=deadline,
-        status="todo"
+        status="todo",
+        priority=priority
     )
     todo_interface.add_todo(task_obj)
     t.done(TRANS("new_task"))
