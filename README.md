@@ -99,6 +99,12 @@ More options: [`todo ls`](./docs/todo_ls.md)
 todo done ${task_id}
 ```
 
+### Discard a Task
+
+```shell
+todo discard ${task_id}
+```
+
 ### Remove a Task
 
 ```shell

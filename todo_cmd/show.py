@@ -13,12 +13,13 @@ from todo_cmd.validation import val_date_fmt
 ExprList = List[Task]
 TodoList = List[Task]
 DoneList = List[Task]
+DiscardList = List[Task]
 TaskLabel = Literal["expr", "todo", "done"]
 
 
 def classify_tasks(
         task_list: List[Task]
-    ) -> Tuple[ExprList, TodoList, DoneList]:
+    ) -> Tuple[ExprList, TodoList, DoneList, DiscardList]:
     """classify task list into three list: expr, todo, done
 
     Args:
@@ -36,15 +37,20 @@ def classify_tasks(
         lambda task: task.is_done, 
         task_list
     ))
-    return (over_due_list, todo_list, done_list)
+    discard_list = list(filter(
+        lambda task: task.is_discard,
+        task_list
+    ))
+    return (over_due_list, todo_list, done_list, discard_list)
 
 
 def summary(task_list: List[Task]):
-    expr, todo, done = classify_tasks(task_list)
+    expr, todo, done, discard = classify_tasks(task_list)
     t.info(f"{TRANS('total_tasks')}: {len(task_list)}")
     t.error(f"{TRANS('overdue_tasks')}: {len(expr)}")
     t.todo(f"{TRANS('todo_tasks')}: {len(todo)}")
     t.done(f"{TRANS('done_tasks')}: {len(done)}")
+    t.discard(f"{TRANS('discard_tasks')}: {len(discard)}")
 
 
 def simplify_date(date_str: str) -> str:
@@ -93,6 +99,8 @@ def table(task_list: List[Task], verbose: bool=False):
             status_str = t.blue_label(TRANS(t_label))
         elif t_label == "done":
             status_str = t.green_label(TRANS(t_label))
+        elif t_label == "discard":
+            status_str = t.gray_label(TRANS(t_label))
 
         for idx, task in enumerate(t_list):
             is_last_elem = True if (idx+1) == len(t_list) else False
@@ -119,11 +127,11 @@ def table(task_list: List[Task], verbose: bool=False):
                 )
 
     # Some filter logic
-    over_due_list, todo_list, done_list = classify_tasks(task_list)
+    over_due_list, todo_list, done_list, discard_list = classify_tasks(task_list)
 
     # Some sort logic
     # default: sort tasks by status
-    for l in [todo_list, over_due_list, done_list]:
+    for l in [todo_list, over_due_list, done_list, discard_list]:
         l.sort(key=lambda task: task.created_date, reverse=True)
 
     table = Table()
@@ -139,4 +147,5 @@ def table(task_list: List[Task], verbose: bool=False):
     add_section(table, over_due_list, "expr", verbose)
     add_section(table, todo_list, "todo", verbose)
     add_section(table, done_list, "done", verbose)
+    add_section(table, discard_list, "discard", verbose)
     t.console.print(table)

@@ -109,6 +109,8 @@ def filter_compare_date(
     res_list = []
     for task in task_list:
         task_dt = val_date_fmt(getattr(task, compare_attr))
+        if not task_dt:
+            continue
         if operator == "gt":
             if task_dt > input_dt:
                 res_list.append(task)
@@ -208,11 +210,15 @@ def ls(
     if (input_args is None) and (start or end):
         # args 未确定时间范围，用户通过 start end 参数确定了时间
         if start:
-            # 筛选 create 日期大于 start 的任务
-            task_list = filter_compare_date(start, task_list, "gt")
+            # 筛选 create and done 日期大于 start 的任务
+            task_list_created_after_start = filter_compare_date(start, task_list, "gt")
+            task_list_done_after_start = filter_compare_date(start, task_list, "gt", "done_date")
+            task_list = list(set(task_list_created_after_start + task_list_done_after_start))
         if end:
-            # 筛选 create 日期小于 end 的任务
-            task_list = filter_compare_date(end, task_list, "lt")
+            # 筛选 create and done 日期小于 end 的任务
+            task_list_created_before_end = filter_compare_date(end, task_list, "lt")
+            task_list_done_before_end = filter_compare_date(end, task_list, "lt", "done_date")
+            task_list = list(set(task_list_created_before_end + task_list_done_before_end))
 
     if status_flag:
         # just filter with status

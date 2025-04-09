@@ -14,6 +14,7 @@ WARN_MARK = "[default on dark_orange] ! [/]"
 ERROR_MARK = "[default on red] x [/]"
 ASK_MARK = "[default on deep_sky_blue1] ? [/]"
 INFO_MARK = "[default on bright_black] * [/]"
+DISCARD_MARK = "[default on bright_black] … [/]"
 
 
 @wraps(console.print)
@@ -45,6 +46,11 @@ def ask(prompt: str, **kwargs):
 @wraps(console.print)
 def info(*args, **kwargs):
     console.print(INFO_MARK, *args, **kwargs)
+
+
+@wraps(console.print)
+def discard(*args, **kwargs):
+    console.print(DISCARD_MARK, *args, **kwargs)
 
 
 def red_label(text: str) -> str:

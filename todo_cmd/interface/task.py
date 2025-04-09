@@ -4,7 +4,7 @@ from typing import Literal, List
 from todo_cmd.validation import val_date_fmt
 
 
-TASK_STATUS = Literal["todo", "done"]
+TASK_STATUS = Literal["todo", "done", "discard"]
 DATE_ATTR = Literal["ddl", "create_date", "done_date"]
 TASK_PRIORITY = Literal["p0", "p1", "p2", "p3"]
 
@@ -64,7 +64,7 @@ status={self.status}, ddl:{self.ddl}, tags={self.tags}), priority={self.priority
     def is_over_due(self) -> bool:
         """is the task over due"""
         # For tasks already done, its not over due
-        if self.status == "done":
+        if self.status in ["done", "discard"]:
             return False
         # get ddl datetime
         ddl_dt = val_date_fmt(self.ddl)
@@ -79,6 +79,13 @@ status={self.status}, ddl:{self.ddl}, tags={self.tags}), priority={self.priority
     def is_strict_todo(self) -> bool:
         """is task's status todo and not over due"""
         if (self.status == "todo") and (not self.is_over_due):
+            return True
+        return False
+
+    @property
+    def is_discard(self) -> bool:
+        """is task's status discard"""
+        if self.status == "discard":
             return True
         return False
     
@@ -97,7 +104,11 @@ status={self.status}, ddl:{self.ddl}, tags={self.tags}), priority={self.priority
             self.status = new_status
             self.done_date = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
             return True
-
+        if new_status == "discard":
+            self.status = new_status
+            self.done_date = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+            return True
+        
         # ? are there any other choices
         return False
     

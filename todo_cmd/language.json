@@ -71,6 +71,10 @@
         "en": "done",
         "zh": "完成"
     },
+    "discard": {
+        "en": "drop",
+        "zh": "丢弃"
+    },
     "total_tasks": {
         "en": "Total   Tasks",
         "zh": "总计任务数"
@@ -86,6 +90,10 @@
     "done_tasks": {
         "en": "Done    Tasks",
         "zh": "已完成个数"
+    },
+    "discard_tasks": {
+        "en": "Discard Tasks",
+        "zh": "丢弃任务数"
     },
     "end_should_later_than_start": {
         "en": "End date should be later than start date",
@@ -190,5 +198,13 @@
     "config_edit_done": {
         "en": "Config edit done",
         "zh": "配置已修改"
+    },
+    "task_already_discarded": {
+        "en": "Task already discarded, won't update",
+        "zh": "任务本身已经丢弃，未执行更新"
+    },
+    "task_discarded": {
+        "en": "Task discarded",
+        "zh": "任务已丢弃"
     }
 }
