@@ -12,6 +12,8 @@
 Welcome to the **todo-cmd**!
 This is a simple tool to help you manage your tasks.
 
+![snap](./docs/todo_ls.png)
+
 ## 1. 安装｜Installation
 
 有多种安装方法，推荐使用 `uv` 或 `pipx`
