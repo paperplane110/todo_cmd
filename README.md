@@ -23,10 +23,20 @@ This is a simple tool to help you manage your tasks.
 pip3 install uv
 
 # Use uv
-uvx todo-cmd
+uv tool install todo-cmd
 
 # or use pipx
 pipx install todo-cmd
+```
+
+卸载 ｜ uninstall
+
+```bash
+# Use uv
+uv tool uninstall todo-cmd
+
+# Use pipx
+pipx uninstall todo-cmd
 ```
 
 ### 1.2 pip 安装 | pip install
