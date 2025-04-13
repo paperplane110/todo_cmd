@@ -3,19 +3,16 @@
 ## List all configuration
 
 ```shell
-todo config
+todo config --list
 
 ---
-{'language': 'en', 'ddl_delta': 43200}
+{'language': 'en', 'ddl_delta': 3}
 ```
 
 ## Modify configuration
 
 ```
-todo config ${attr} ${value}
-
-# e.g. set language to Chinese
-todo config language zh
+todo config --edit
 ```
 
 ## Configuration
@@ -27,9 +24,9 @@ todo config language zh
 
 ### `ddl_delta`
 
-When adding a todo with out specify its deadline,
+When adding a todo without specify its deadline,
 `todo-cmd` will add a default time delta: `ddl_delta`.
 
-`ddl_delta` must be a integer larger than 0, metric is second.
+`ddl_delta` must be an integer larger than 0, metric is day.
 
-`ddl_delta`'s default value is 1 day.
+`ddl_delta`'s default value is 3 day.

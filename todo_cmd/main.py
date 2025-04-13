@@ -53,7 +53,7 @@ def main():
 
     todo.add_command(done)
     
-    todo.add_command(discard)
+    todo.add_command(discard, "drop")
 
     todo()
 

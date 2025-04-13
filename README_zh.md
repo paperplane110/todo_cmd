@@ -7,81 +7,76 @@
                          
 ```
 
-欢迎使用 **todo-cmd**，这是一个简单的工具，帮助您在命令行中轻松管理代办、记录完成事项。**[中文文档在这里](./README_zh.md)**
-
-Welcome to the **todo-cmd**!
-This is a simple tool to help you manage your tasks.
+欢迎使用 **todo-cmd**，这是一个简单的工具，帮助您在命令行中轻松管理代办、记录完成事项。
 
 ![snap](./docs/todo_ls.png)
 
 
-## 1. Features
+## 1. 特性
 
-1. Commandline interface, easy to use
-2. Simple and beautiful TUI
-3. Support multiple status: `todo`, `done`, `expired`, `discarded`
-4. Support task priority: `p0`, `p1`, `p2`, `p3`
+1. 命令行优先，使用简单，快速上手。
+2. 美观的 TUI 展示
+3. 支持多种状态：`进行`、`完成`、`逾期`、`丢弃`
+4. 支持任务优先级：p0, p1, p2, p3
 
-## 2. Installation
+## 2. 安装
 
-### 2.1 👍 Use `uv` or `pipx`
+有多种安装方法，推荐使用 `uv` 或 `pipx`
+
+### 2.1 👍 uv 或 pipx 安装
 
 ```bash
-# if you don't have uv
+# 若您未曾安装 uv，请先执行
 pip3 install uv
 
-# Use uv
+# 使用 uv 安装
 uv tool install todo-cmd
 
-# or use pipx
+# 或使用 pipx
 pipx install todo-cmd
 ```
 
-uninstall
+卸载
 
 ```bash
-# Use uv
+# 使用 uv
 uv tool uninstall todo-cmd
 
-# Use pipx
+# 使用 pipx
 pipx uninstall todo-cmd
 ```
 
-### 2.2 Install from source
+### 2.2 pip 安装
 
 ```shell
-git clone https://github.com/paperplane110/todo_cmd.git
-cd todo_cmd
-pip3 install .
+pip3 install todo_cmd
 ```
 
-## 3. Usage
+## 3. 使用方法
 
-### Add a todo task
+### 新建一个 todo
 
 ```bash
 todo add ${task}
 
-# or use shortcut
+# 也可使用 a 简写
 todo a ${task}
 
-# with deadline
+# 新建同时设置截止日期
 todo add ${task} --deadline ${YYYYMMdd}
 todo add ${task} -ddl ${YYYYMMdd}
 ```
 
-### Add a finished task
+### 直接记录一个完成的事
 
 ```shell
 todo log ${task}
 
-# or use shortcut
+# 或使用 l 简写
 todo l ${task}
 ```
 
-### List tasks
-
-List all tasks
+### 列出所有任务
 
 ```shell
 todo ls
@@ -103,33 +98,47 @@ todo ls
 └────┴────────┴──────────────────────────────────────┴────────────┴─────────────┘
 ```
 
-List tasks by given status (`todo`|`done`|`expr`)
+根据任务状态 (`todo`|`done`|`expr`)，列出不同的任务
 
 ```shell
 todo ls --${status}
 ```
 
-More options: [`todo ls`](./docs/todo_ls.md)
+根据日期范围，列出任务
 
-### Set a Task Done
+```shell
+todo ls --start ${YYYYmmdd}
+todo ls --end ${YYYYmmdd}
+
+todo ls --start ${YYYYmmdd} --end ${YYYYmmdd}
+todo ls -s ${YYYYmmdd} -e ${YYYYmmdd}
+```
+
+详细文档: [`todo ls`](./docs/todo_ls.md)
+
+### 完成任务
 
 ```shell
 todo done ${task_id}
 ```
 
-### Discard a Task
+### 丢弃任务
+
+不再关注这个任务，但仍保留记录
 
 ```shell
 todo drop ${task_id}
 ```
 
-### Remove a Task
+### 删除任务
+
+彻底删除任务记录
 
 ```shell
 todo rm ${task_id}
 ```
 
-### Modify a Task
+### 修改任务
 
 ```shell
 todo mod ${task_id}
@@ -140,7 +149,11 @@ todo m ${task_id}
 
 More options: [`todo mod`](./docs/todo_mod.md)
 
-### Edit configuration
+### 编辑配置
+
+目前支持的配置项有：
+- 语言：英语 en, 中文 zh
+- 默认截止日期偏移天数：默认 3 天
 
 ```shell
 # show configs
@@ -150,27 +163,21 @@ todo config --list
 todo config --edit
 ```
 
-- More details: [Configuration](./docs/todo_config.md)
+- [详细文档](./docs/todo_config.md)
 
-## 4. For Developer
+## 4. 如何开发
 
-Install todo_cmd in editable mode
+以编辑模式，安装 todo_cmd
 
 ```shell
 pip install -e .
 ```
 
-## 5. Design
-
-### Tech stack
-
-- Commandline: [Rich-click](https://github.com/ewels/rich-click)
-- TUI: [Rich](https://github.com/Textualize/rich)
-
-### Documents
+## 5.设计文档
 
 - [Task class](./docs/task_class.md)
   - [Task status](./docs/task_status.md)
 - [Design of `todo ls`](./docs/todo_ls.md)
 - [Design of `todo rm`](./docs/todo_rm.md)
 - [Design of `todo mod`](./docs/todo_mod.md)
+- [Design of `todo config`](./docs/todo_config.md)

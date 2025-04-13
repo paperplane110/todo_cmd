@@ -67,27 +67,6 @@ todo ls 1
 todo ls 1 2 3 4
 ```
 
-Or if you want to know what you have done in the last week/month/year
-
-- `today/t`: today
-- `yest/y`: yesterday
-- `week/w`: last week
-- `month/m`: last month
-- `year`: last year
-
-```
-todo ls y
-todo ls w
-todo ls m
-```
-
-Or, you would like to know the next day/weeks/month's plan:
-
-- `tmr`: tomorrow
-- `nw`: next week
-- `nm`: next month
-- `ny`: next year
-
 ## List by given date
 
 User need to provide date range:
@@ -117,36 +96,9 @@ todo ls --todo
 
 ## Options Composition
 
-- 🕶 When `id or ids` is given, other options will be omitted
-
-```shell
-# will only display task 1 2 3
-todo ls 1 2 3 --done
-```
-
-- `yest/week/month/year/tmr/nw/nm/ny` can work with status option
-
-```shell
-# search what should be done in the next week
-todo ls nw --todo
-
-# search what has been done on yesterday
-todo ls yest --done
-```
-
 - ✅ Valid
 
 ```shell
-# Search tasks in last week, whose status is done
-todo ls week --done
-
 # Search tasks between 20240101 and 20241231, whose status is done
 todo ls -s 20240101 -e 20241231 --done
-```
-
-- ❌ Invalid
-
-```shell
-todo ls week -s 20240101 -e 20241231
-todo ls --todo --expr
 ```

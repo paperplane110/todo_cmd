@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "todo_cmd"
-version = "0.11.0"
+version = "1.0.0"
 description = "A command line tool for managing todos."
 authors = [
     {name = "Tianyu Yuan", email = "1374736640@qq.com"}

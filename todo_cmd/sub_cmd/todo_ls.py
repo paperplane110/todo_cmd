@@ -173,6 +173,7 @@ def check_start_end_option(start: datetime, end: datetime):
             exit(1)
 
 
+# [Bug]? discard status is missing
 @click.command()
 @click.argument("args", nargs=-1)
 @click.option("-s", "--start", callback=val_date_fmt_callback)
@@ -223,14 +224,13 @@ def ls(
     if status_flag:
         # just filter with status
         if status_flag == "todo":
-            task_list = todo_interface.find_tasks_by_status("todo")
+            task_list = list(filter(lambda task: task.status == "todo", task_list))
         if status_flag == "done":
-            task_list = todo_interface.find_tasks_by_status("done")
+            task_list = list(filter(lambda task: task.status == "done", task_list))
         if status_flag == "expr":
-            raw_task_list = todo_interface.find_tasks_by_status("todo")
             task_list = list(filter(
                 lambda task: task.is_over_due,
-                raw_task_list
+                task_list
             ))
 
     if len(task_list) == 0:
